@@ -16,7 +16,8 @@ def hook_privmsg(irc, source, command, args):
 
     if channel.lower() == '#roulette' and text.startswith('!roulette'):
         if secrets.randbelow(6) == 1:
-            irc.kill(irc.pseudoclient.uid, source, '\x02*BANG*\x02')
+            irc._send_with_prefix(irc.pseudoclient.uid, f'KILL {source} :\x02*BANG*\x02')
+            irc._remove_client(source)
         else:
             irc.msg(channel, f'{user.nick}: *CLICK*')
 

@@ -1,7 +1,7 @@
 """
 roulette.py: /KILL roulette
 """
-import random
+import secrets
 
 from pylinkirc import utils
 
@@ -15,7 +15,7 @@ def hook_privmsg(irc, source, command, args):
         return
 
     if channel.lower() == '#roulette' and text.startswith('!roulette'):
-        if random.randint(1, 6) == 1:
+        if secrets.randbelow(6) == 1:
             irc.kill(irc.pseudoclient.uid, source, '\x02*BANG*\x02')
         else:
             irc.msg(channel, f'{user.nick}: *CLICK*')
